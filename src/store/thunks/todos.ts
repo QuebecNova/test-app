@@ -6,7 +6,7 @@ import { RootState } from "..";
 export const fetchTodos = createAsyncThunk(
   "todos/fetchTodos",
   async (userId: number, {getState}) => {
-    const data = (await axios.get(
+    const response = (await axios.get(
       `https://jsonplaceholder.typicode.com/users/${userId}/todos`
     )) as any;
 
@@ -17,16 +17,16 @@ export const fetchTodos = createAsyncThunk(
     let ids: number[] = [];
     let entities: ITodosEntities = { completed: [], uncompleted: [] };
 
-    if (data.data && data.data.length) {
-      ids = data.data.reduce((acc: number[], item: ITodosEntity) => {
+    if (response.data && response.data.length) {
+      ids = response.data.reduce((acc: number[], item: ITodosEntity) => {
         acc.push(item.id);
         return acc;
       }, []);
 
-      const completed = data.data.filter(
+      const completed = response.data.filter(
         (item: ITodosEntity) => item.completed
       );
-      const uncompleted = data.data.filter(
+      const uncompleted = response.data.filter(
         (item: ITodosEntity) => !item.completed
       );
 

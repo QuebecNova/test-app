@@ -6,7 +6,7 @@ import { IPostEntity } from '../slices/posts';
 export const fetchPostById = createAsyncThunk(
     "posts/fetchPostById",
     async (postId: string | number, { getState }) => {
-      const data = (await axios.get(
+      const response = (await axios.get(
         `https://jsonplaceholder.typicode.com/posts/${postId}`
       )) as any;
   
@@ -17,9 +17,9 @@ export const fetchPostById = createAsyncThunk(
       let id: number | null = null;
       let entity: IPostEntity | null = null;
   
-      if (data.data) {
-        id = data.data.id as number;
-        entity = data.data as IPostEntity;
+      if (response.data) {
+        id = response.data.id as number;
+        entity = response.data as IPostEntity;
       }
   
       return { id, entity };
@@ -35,7 +35,7 @@ export const fetchPostById = createAsyncThunk(
       start: string | number | null;
       limit: string | number | null;
     }) => {
-      const data = (await axios.get(
+      const response = (await axios.get(
         `https://jsonplaceholder.typicode.com/posts?_start=${start || 1}&_limit=${
           limit || 10
         }`
@@ -44,13 +44,13 @@ export const fetchPostById = createAsyncThunk(
       let ids: number[] = [];
       let entities: IPostEntity[] = [];
   
-      if (data.data && data.data.length) {
-        ids = data.data.reduce((acc: number[], item: IPostEntity) => {
+      if (response.data && response.data.length) {
+        ids = response.data.reduce((acc: number[], item: IPostEntity) => {
           acc.push(item.id);
           return acc;
         }, []);
   
-        entities = data.data;
+        entities = response.data;
       }
   
       return { ids, entities };

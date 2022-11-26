@@ -6,7 +6,7 @@ import { IAlbumEntity } from "../slices/albums";
 export const fetchAlbumById = createAsyncThunk(
   "albums/fetchAlbumById",
   async (albumId: number, { getState }) => {
-    const data = (await axios.get(
+    const response = (await axios.get(
       `https://jsonplaceholder.typicode.com/albums/${albumId}`
     )) as any;
 
@@ -19,9 +19,9 @@ export const fetchAlbumById = createAsyncThunk(
     let id: number | null = null;
     let entity: IAlbumEntity | null = null;
 
-    if (data.data) {
-      id = data.data.id as number;
-      entity = data.data as IAlbumEntity;
+    if (response.data) {
+      id = response.data.id as number;
+      entity = response.data as IAlbumEntity;
     }
 
     return { id, entity };
@@ -37,7 +37,7 @@ export const fetchAlbums = createAsyncThunk(
     start: number | null;
     limit: number | null;
   }, {getState}) => {
-    const data = (await axios.get(
+    const response = (await axios.get(
       `https://jsonplaceholder.typicode.com/albums?_start=${
         start || 1
       }&_limit=${limit || 10}`
@@ -58,13 +58,13 @@ export const fetchAlbums = createAsyncThunk(
     let ids: number[] = [];
     let entities: IAlbumEntity[] = [];
 
-    if (data.data && data.data.length) {
-      ids = data.data.reduce((acc: number[], item: IAlbumEntity) => {
+    if (response.data && response.data.length) {
+      ids = response.data.reduce((acc: number[], item: IAlbumEntity) => {
         acc.push(item.id);
         return acc;
       }, []);
 
-      entities = data.data;
+      entities = response.data;
     }
 
     return { ids, entities };

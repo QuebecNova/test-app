@@ -10,16 +10,16 @@ export const fetchAlbumPhotos = createAsyncThunk(
 
     if (state.photos.loadedPhotosAlbumIds.includes(albumId)) return;
 
-    const data = (await axios.get(
+    const response = (await axios.get(
       `https://jsonplaceholder.typicode.com/albums/${albumId}/photos`
     )) as any;
 
     let entities: IPhotosEntity[] = [];
     let ids: number[] = [];
 
-    if (data.data && data.data.length) {
-      entities = data.data;
-      ids = data.data.reduce((acc: number[], item: IPhotosEntity) => {
+    if (response.data && response.data.length) {
+      entities = response.data;
+      ids = response.data.reduce((acc: number[], item: IPhotosEntity) => {
         acc.push(item.id);
         return acc;
       }, []);
