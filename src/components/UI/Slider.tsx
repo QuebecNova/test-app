@@ -84,6 +84,7 @@ export function Slider({ images }: Props) {
         <Box
           sx={{
             display: "flex",
+            flexWrap: "wrap",
             gap: "1px",
             paddingLeft: "10px",
             mt: 2,

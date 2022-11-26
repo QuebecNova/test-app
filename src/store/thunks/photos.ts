@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "..";
 import axios from "axios";
+import { IPhotosEntity } from "../slices/photos";
 
 export const fetchAlbumPhotos = createAsyncThunk(
   "photos/fetchAlbumPhotos",
