@@ -22,7 +22,6 @@ import { Draggable } from "react-beautiful-dnd";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import AddIcon from "@mui/icons-material/Add";
-import { toast } from "react-toastify";
 
 type Props = {
   completed?: boolean;
@@ -116,6 +115,7 @@ export function TodosColumn({ completed, placeholder, form }: Props) {
                       padding: 1,
                       border: `1px solid ${theme.palette.divider}`,
                       borderRadius: "4px",
+                      bgcolor: theme.palette.grey[900]
                     }}
                     {...provided.draggableProps}
                     ref={provided.innerRef}

@@ -40,7 +40,7 @@ export function Album() {
   })();
 
   return (
-    <Container sx={{ width: "45%" }}>
+    <Container sx={{width: '850px'}}>
       {loadingNode}
       {albumState.success && album && (
         <Card>

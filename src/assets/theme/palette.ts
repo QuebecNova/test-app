@@ -22,5 +22,8 @@ const darkPalette = {
 const lightPalette = {
   secondary: {
     main: '#ffffff'
+  },
+  grey: {
+    900: '#ffffff'
   }
 };
