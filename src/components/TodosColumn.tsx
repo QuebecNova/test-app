@@ -138,7 +138,6 @@ export function TodosColumn({ completed, placeholder, form }: Props) {
                             column,
                           })
                         );
-                        toast.success("Todo title changed");
                       }}
                       endAdornment={
                         <IconButton

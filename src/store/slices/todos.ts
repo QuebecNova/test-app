@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import {
   addTodo,
   changeTodoCompletedById,
@@ -105,6 +106,7 @@ const todosSlice = createSlice({
           todo.completed = action.payload.completed;
         }
         state.error = null;
+        toast.success("Todos reordered");
       })
       .addCase(addTodo.fulfilled, (state, action) => {
         state.entities[action.payload.column].push({
@@ -114,6 +116,7 @@ const todosSlice = createSlice({
           completed: action.payload.column === "completed",
         });
         state.ids.push(state.ids.length + 1);
+        toast.success("Todo added");
       })
       .addCase(fetchTodos.fulfilled, (state, action) => {
         state.error = null;
@@ -135,6 +138,7 @@ const todosSlice = createSlice({
           action.payload.column
         ].filter((todo) => todo.id !== action.payload.id);
         state.ids = state.ids.filter((id) => id !== action.payload.id);
+        toast.success("Todo deleted");
       })
       .addCase(changeTodoTitleById.fulfilled, (state, action) => {
         const todo = state.entities[action.payload.column].find(
@@ -142,6 +146,7 @@ const todosSlice = createSlice({
         );
         if (todo) {
           todo.title = action.payload.title;
+          toast.success("Todo title changed");
         }
       });
   },

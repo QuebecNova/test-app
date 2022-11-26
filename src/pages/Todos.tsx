@@ -65,8 +65,6 @@ export function Todos() {
         })
       );
     }
-
-    toast.success("Todos reordered!");
   };
 
   return (
