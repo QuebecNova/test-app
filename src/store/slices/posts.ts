@@ -47,10 +47,8 @@ const postsSlice = createSlice({
         state.error = null;
         state.loading = false;
         state.success = true;
-        if (action.payload) {
-          state.entities = action.payload.entities;
-          state.ids = action.payload.ids;
-        }
+        state.entities = action.payload.entities;
+        state.ids = action.payload.ids;
       })
       .addCase(fetchPostById.fulfilled, (state, action) => {
         state.error = null;

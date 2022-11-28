@@ -23,8 +23,8 @@ export function Posts() {
   const navigate = useNavigate();
 
   const [params] = useSearchParams();
-  const postsLimit = params.get("limit") || '10';
-  const postsStart = params.get("start") || '1';
+  const postsLimit = params.get("limit");
+  const postsStart = params.get("start");
 
   const posts = useAppSelector((state) => state.posts);
   const dispatch = useAppDispatch();
@@ -32,7 +32,7 @@ export function Posts() {
   const [expandedPosts, setExpandedPosts] = useState<number[]>([]);
 
   useEffect(() => {
-    dispatch(fetchPosts({ start: +postsStart, limit: +postsLimit }));
+    dispatch(fetchPosts({ start: postsStart, limit: postsLimit }));
   }, []);
 
   const handleExpand = (postId: number) => {

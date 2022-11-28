@@ -6,13 +6,13 @@ import { RootState } from "..";
 export const fetchTodos = createAsyncThunk(
   "todos/fetchTodos",
   async (userId: number, {getState}) => {
-    const state = getState() as RootState;
-  
-    if (state.todos.userIdTodosFetched.some((id) => id === userId)) return;
-
     const response = (await axios.get(
       `https://jsonplaceholder.typicode.com/users/${userId}/todos`
     )) as any;
+
+    const state = getState() as RootState;
+  
+    if (state.todos.userIdTodosFetched.some((id) => id === userId)) return;
 
     let ids: number[] = [];
     let entities: ITodosEntities = { completed: [], uncompleted: [] };

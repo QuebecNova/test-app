@@ -6,13 +6,15 @@ import { IAlbumEntity } from "../slices/albums";
 export const fetchAlbumById = createAsyncThunk(
   "albums/fetchAlbumById",
   async (albumId: number, { getState }) => {
-    const state = getState() as RootState;
-
-    if (state.albums.ids.some((id) => id === albumId)) return;
-
     const response = (await axios.get(
       `https://jsonplaceholder.typicode.com/albums/${albumId}`
     )) as any;
+
+    const state = getState() as RootState;
+
+    console.log(state.albums.ids.some((id) => id === albumId))
+
+    if (state.albums.ids.some((id) => id === albumId)) return;
 
     let id: number | null = null;
     let entity: IAlbumEntity | null = null;
@@ -28,33 +30,30 @@ export const fetchAlbumById = createAsyncThunk(
 
 export const fetchAlbums = createAsyncThunk(
   "albums/fetchAlbums",
-  async (
-    {
-      start,
-      limit,
-    }: {
-      start: number | null;
-      limit: number | null;
-    },
-    { getState }
-  ) => {
-    const state = getState() as RootState;
-
-    let fetched = 0;
-
-    for (let i = start || 1; i <= (limit || 10); i++) {
-      if (state.albums.ids.includes(i)) {
-        fetched++;
-      }
-    }
-
-    if (fetched === (limit || 10) - 1) return;
-
+  async ({
+    start,
+    limit,
+  }: {
+    start: number | null;
+    limit: number | null;
+  }, {getState}) => {
     const response = (await axios.get(
       `https://jsonplaceholder.typicode.com/albums?_start=${
         start || 1
       }&_limit=${limit || 10}`
     )) as any;
+
+    const state = getState() as RootState;
+
+    let fetched = 0
+
+    for (let i = start || 1; i <= (limit || 10); i++) {
+        if (state.albums.ids.includes(i)) {
+            fetched++
+        }
+    }
+
+    if (fetched === (limit || 10) - 1) return;
 
     let ids: number[] = [];
     let entities: IAlbumEntity[] = [];
