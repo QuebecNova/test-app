@@ -99,11 +99,13 @@ const todosSlice = createSlice({
 
     builder
       .addCase(changeTodoCompletedById.fulfilled, (state, action) => {
-        const todo = state.entities[action.payload.column].find(
-          (todo) => todo.id === action.payload.id
-        );
-        if (todo) {
-          todo.completed = action.payload.completed;
+        if (action.payload) {
+          const todo = state.entities[action.payload.column].find(
+            (todo) => todo.id === action.payload.id
+          );
+          if (todo) {
+            todo.completed = action.payload.completed;
+          }
         }
         state.error = null;
         toast.success("Todos reordered");
